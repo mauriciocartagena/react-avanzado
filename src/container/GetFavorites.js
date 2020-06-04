@@ -17,7 +17,7 @@ const GET_FAVS = gql`
 const renderProp = ({ loading, error, data }) => {
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error!</p>
-  const { favs } = data
+  const { favs } = data ;
   return <ListOfFavs favs={favs} />
 }
 

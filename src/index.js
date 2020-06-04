@@ -10,8 +10,8 @@ import { ApolloProvider } from 'react-apollo'
 const client = new ApolloClient({
   uri: 'https://petgram-server-mauricio-5nvrxsb1i.now.sh/graphql',
   request: operation => {
-    const token = window.sessionStorage.getItem('token');
-    const authorization = token ? `Bearer ${token}` : '';
+    const token = window.sessionStorage.getItem('token')
+    const authorization = token ? `Bearer ${token}` : ''
     operation.setContext({
       headers: {
         authorization

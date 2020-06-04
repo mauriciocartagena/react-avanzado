@@ -11,7 +11,7 @@ export const NotRegisteredUser = () => {
     <React.Fragment>
       <RegisterMutation>
         {
-          (register, { data, loading, error }) => {
+          (register, { loading, error }) => {
             const onSubmit = ({ email, password }) => {
               const input = { email, password }
               const variables = { input }
@@ -30,7 +30,7 @@ export const NotRegisteredUser = () => {
 
       <LoginMutation>
         {
-          (login, { data, loading, error }) => {
+          (login, { loading, error }) => {
             const onSubmit = ({ email, password }) => {
               const input = { email, password }
               const variables = { input }
