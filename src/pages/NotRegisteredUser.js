@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Context } from '../Context';
 import { UserForm } from '../components/UserForm';
-import { RegisterMutation } from '../container/RegisterMutation.js'
-import { LoginrMutation } from '../container/LoginMutation';
+import { RegisterMutation } from '../container/RegisterMutation'
+import { LoginMutation } from '../container/LoginMutation';
 
 export const NotRegisteredUser = () => {
 
@@ -12,7 +12,6 @@ export const NotRegisteredUser = () => {
       <RegisterMutation>
         {
           (register, { data, loading, error }) => {
-
             const onSubmit = ({ email, password }) => {
               const input = { email, password }
               const variables = { input }
@@ -20,7 +19,6 @@ export const NotRegisteredUser = () => {
                 .then(({ data }) => {
                   const { signup } = data;
                   activateAuth(signup);
-
                 })
                 .catch((e) => console.log(e))
             }
@@ -30,7 +28,7 @@ export const NotRegisteredUser = () => {
         }
       </RegisterMutation>
 
-      <LoginrMutation>
+      <LoginMutation>
         {
           (login, { data, loading, error }) => {
             const onSubmit = ({ email, password }) => {
@@ -49,7 +47,7 @@ export const NotRegisteredUser = () => {
           }
         }
 
-      </LoginrMutation>
+      </LoginMutation>
 
     </React.Fragment>
   )

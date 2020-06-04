@@ -8,7 +8,7 @@ mutation login($input:UserCredentials!){
 }
 `
 
-export const LoginrMutation = ({ children }) => {
+export const LoginMutation = ({ children }) => {
   return <Mutation mutation={LOGIN}>
     {children}
   </Mutation>
