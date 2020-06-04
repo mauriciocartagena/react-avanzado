@@ -1,55 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { ImgWrapper, Img, Article } from './style';
 import { FavButton } from '../FavButton';
 import { ToggleLikeMutation } from '../../container/ToggleLikeMutation';
 import { Link } from '@reach/router';
-
+import { useNearScreen } from '../../hooks/useNearScreen';
+import PropTypes from 'prop-types';
 
 const DEFAULT_IMAGE = 'https://res.cloudinary.com/midudev/image/upload/w_300/q_80/v1560262103/dogs.png';
 
-export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
+export const PhotoCard = ({ id, liked, likes = 0, src = DEFAULT_IMAGE }) => {
 
+  const [show, element] = useNearScreen();
 
-  const element = useRef(null);
-  const [show, setShow] = useState(false);
-  const key = `like=${id}`;
-
-  const [liked, setLiked] = useState(() => {
-    try {
-      const like = window.localStorage.getItem(key)
-      return like;
-    } catch (e) {
-      return false;
-    }
-  });
-
-  useEffect(function () {
-    Promise.resolve(
-      typeof window.IntersectionObserver !== 'undefined'
-        ?
-        window.IntersectionObserver
-        : import('intersection-observer')
-    ).then(() => {
-      const observer = new window.IntersectionObserver(function (entries) {
-        const { isIntersecting } = entries[0];
-        if (isIntersecting) {
-          setShow(true);
-          observer.disconnect();
-        }
-      })
-      observer.observe(element.current);
-    })
-
-  }, [element])
-
-  const setLocalStorage = value => {
-    try {
-      window.localStorage.setItem(key, value)
-      setLiked(value)
-    } catch (e) {
-      console.error(e);
-    }
-  }
   return (
     <Article ref={element}>
       {
@@ -65,8 +27,8 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
             {
               (toggleLike) => {
                 const handleFavClick = () => {
-                  !liked && toggleLike({ variables: { input: { id } } })
-                  setLocalStorage(!liked)
+                  toggleLike({ variables: { input: { id } } })
+
                 };
 
                 return <FavButton
@@ -83,4 +45,19 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
 
     </Article>
   )
+}
+
+PhotoCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  liked: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired,
+  likes: function (props, propName, componentName) {
+    const propValue = props[propName];
+    if (propValue === undefined) {
+      return new Error(`${propName}  Value must be defined`);
+    }
+    if (propValue < 0) {
+      return new Error(`${propName}  Value must be greater than 0`);
+    }
+  }
 }
