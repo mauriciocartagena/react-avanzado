@@ -1,3 +1,6 @@
 {
-  "baseUrl": "https://react-avanzado-92o0pdsci.now.sh/"
+  "baseUrl": "https://react-avanzado-e9b3sjq3t.now.sh/",
+  "chromeWebSecurity": false,
+  "viewportWith": 500,
+  "viewportHeight": 800
 }
