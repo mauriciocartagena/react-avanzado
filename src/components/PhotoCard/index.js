@@ -28,9 +28,7 @@ export const PhotoCard = ({ id, liked, likes = 0, src = DEFAULT_IMAGE }) => {
               (toggleLike) => {
                 const handleFavClick = () => {
                   toggleLike({ variables: { input: { id } } })
-
                 };
-
                 return <FavButton
                   liked={liked} likes={likes} onClick={handleFavClick}
                 ></FavButton>
